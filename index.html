@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI Smart Tourism & Travel Assistant</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+</head>
+<body>
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="container nav-inner">
+      <a href="#home" class="logo">🧭 <span>SmartTour</span></a>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#features">Features</a></li>
+        <li><a href="#planner">Trip Planner</a></li>
+        <li><a href="#budget">Budget</a></li>
+        <li><a href="#nearby">Discover</a></li>
+        <li><a href="#directions">Directions</a></li>
+        <li><a href="#translator">Translator</a></li>
+        <li><a href="#review">Review</a></li>
+      </ul>
+      <a href="#planner" class="btn btn-primary nav-cta">Plan My Trip</a>
+      <button class="hamburger" id="hamburger" aria-label="Menu">☰</button>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <header class="hero" id="home">
+    <div class="container hero-inner">
+      <div class="hero-text">
+        <span class="badge">🌍 AI-Powered Travel Companion</span>
+        <h1>Discover, plan, navigate & travel safely — from one app.</h1>
+        <p>Smart itineraries, live maps, budget optimization, weather-aware alerts, and a multilingual voice translator. Built for tourists, by students.</p>
+        <div class="hero-actions">
+          <a href="#planner" class="btn btn-primary">🤖 Plan My Trip</a>
+          <a href="#features" class="btn btn-ghost">Explore Features</a>
+        </div>
+      </div>
+      <div class="hero-card">
+        <div class="mini-card"><span>📍 Destination</span><strong>Hampi, Karnataka</strong></div>
+        <div class="mini-card"><span>🌦️ Weather</span><strong>28°C · Partly Cloudy</strong></div>
+        <div class="mini-card"><span>💰 Budget</span><strong>₹4,850 / person</strong></div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Features -->
+  <section class="section" id="features">
+    <div class="container">
+      <h2 class="section-title">Everything a traveler needs</h2>
+      <p class="section-sub">Eight powerful modules in one responsive app — mobile, tablet, and desktop.</p>
+      <div class="features-grid">
+        <div class="feature-card"><div class="feature-icon">🤖</div><h3>AI Smart Trip Planner</h3><p>Day-wise itineraries optimized for distance, time, opening hours, budget, weather, and interests.</p></div>
+        <div class="feature-card"><div class="feature-icon">🗺️</div><h3>Google Maps & Navigation</h3><p>Attractions, hotels, transport, hospitals, ATMs & more — with routes, travel time, and a Navigate button.</p></div>
+        <div class="feature-card"><div class="feature-icon">💰</div><h3>Smart Budget Calculator</h3><p>Budget / Standard / Premium plans. Total, per-person, and daily cost with remaining budget tracking.</p></div>
+        <div class="feature-card"><div class="feature-icon">📍</div><h3>Nearby Discovery</h3><p>Filter attractions by 1–25 km or custom distance with entry fees, hours, ratings, and best time to visit.</p></div>
+        <div class="feature-card"><div class="feature-icon">⏱️</div><h3>Journey & Time Planner</h3><p>Smart schedules that minimize travel distance, time, and cost while respecting opening hours.</p></div>
+        <div class="feature-card"><div class="feature-icon">🌦️</div><h3>Weather-Aware Tourism</h3><p>Live forecasts with smart alternatives — e.g. indoor attractions when rain is expected.</p></div>
+        <div class="feature-card"><div class="feature-icon">🗣️</div><h3>Multi-Language Translator</h3><p>Real-time voice translation across 10 Indian languages + international, with two-way conversation mode.</p></div>
+        <div class="feature-card"><div class="feature-icon">💳</div><h3>Payment Information</h3><p>Cash, UPI, cards, wallets & online payments — clearly marked Accepted or Not Accepted.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Trip Planner -->
+  <section class="section alt" id="planner">
+    <div class="container">
+      <h2 class="section-title">🤖 AI Smart Trip Planner</h2>
+      <p class="section-sub">Tell us your trip details — the AI builds an optimized day-wise itinerary.</p>
+      <div class="planner-wrap">
+        <form id="plannerForm" class="planner-form">
+          <div class="form-row">
+            <label>Destination <input id="pDest" type="text" placeholder="e.g. Hampi" required /></label>
+            <label>Starting location <input id="pStart" type="text" placeholder="e.g. Bengaluru" required /></label>
+          </div>
+          <div class="form-row">
+            <label>Travel date <input id="pDate" type="date" required /></label>
+            <label>Start time <input id="pStartTime" type="time" value="09:00" required /></label>
+            <label>Days <input id="pDays" type="number" min="1" max="14" value="2" /></label>
+            <label>People <input id="pPeople" type="number" min="1" value="2" /></label>
+          </div>
+          <div class="form-row">
+            <label>Budget (₹) <input id="pBudget" type="number" value="5000" /></label>
+            <label>Preferences
+              <select id="pPref"><option>Balanced</option><option>Budget-friendly</option><option>Premium</option><option>Adventure</option><option>Cultural</option></select>
+            </label>
+            <label>Interests
+              <select id="pInterest"><option>History & heritage</option><option>Nature & outdoors</option><option>Food & local culture</option><option>Adventure & activities</option><option>Religious & spiritual</option></select>
+            </label>
+          </div>
+          <button type="submit" class="btn btn-primary btn-block">✨ Generate Itinerary</button>
+        </form>
+        <div id="itinerary" class="itinerary hidden"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Budget Calculator -->
+  <section class="section" id="budget">
+    <div class="container">
+      <h2 class="section-title">💰 Smart Budget Calculator</h2>
+      <p class="section-sub">Pick a plan and see total, per-person, and daily costs instantly.</p>
+      <div class="budget-wrap">
+        <div class="plan-cards">
+          <div class="plan-card" data-plan="budget"><h3>🟢 Budget</h3><p>Low-cost travel plan</p><ul><li>Shared transport</li><li>Hostels & homestays</li><li>Street food & local eats</li></ul></div>
+          <div class="plan-card active" data-plan="standard"><h3>🔵 Standard</h3><p>Balanced comfort & cost</p><ul><li>Private transport</li><li>3-star hotels</li><li>Mix of restaurants</li></ul></div>
+          <div class="plan-card" data-plan="premium"><h3>🟣 Premium</h3><p>Higher-comfort travel plan</p><ul><li>Cab / self-drive</li><li>4–5 star stays</li><li>Fine dining & experiences</li></ul></div>
+        </div>
+        <div class="budget-output">
+          <div class="budget-stat"><span>Total Cost</span><strong id="bTotal">₹0</strong></div>
+          <div class="budget-stat"><span>Per Person</span><strong id="bPer">₹0</strong></div>
+          <div class="budget-stat"><span>Daily Cost</span><strong id="bDaily">₹0</strong></div>
+          <div class="budget-stat"><span>Remaining Budget</span><strong id="bRemain">₹0</strong></div>
+        </div>
+        <p class="budget-hint">Try typing: <em>“Plan my trip under ₹5,000”</em> — the AI optimizes automatically.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Nearby Discovery -->
+  <section class="section alt" id="nearby">
+    <div class="container">
+      <h2 class="section-title">📍 Nearby Tourist Place Discovery</h2>
+      <p class="section-sub">Select a destination and a radius to see what's around you.</p>
+      <div class="nearby-controls">
+        <label>Destination
+          <select id="nDest"><option>Hampi</option><option>Goa</option><option>Jaipur</option><option>Munnar</option></select>
+        </label>
+        <label>Radius
+          <select id="nRadius"><option value="1">1 km</option><option value="5" selected>5 km</option><option value="10">10 km</option><option value="25">25 km</option><option value="custom">Custom</option></select>
+        </label>
+        <label id="customWrap" class="hidden">Custom (km) <input id="nCustom" type="number" min="1" value="15" /></label>
+        <label>Category
+          <select id="nCat"><option value="all">All categories</option><option>Historical places</option><option>Nature</option><option>Adventure</option><option>Religious places</option><option>Museums</option><option>Shopping</option><option>Beaches</option><option>Cultural attractions</option></select>
+        </label>
+      </div>
+      <div id="nearbyResults" class="nearby-grid"></div>
+    </div>
+  </section>
+
+  <!-- Directions -->
+  <section class="section" id="directions">
+    <div class="container">
+      <h2 class="section-title">🧭 Directions + ETA + Traffic</h2>
+      <p class="section-sub">Enter start & destination and open live traffic in Google Maps.</p>
+
+      <div class="dir-wrap">
+        <div class="dir-form">
+          <label>Start location
+            <input id="dStart" type="text" placeholder="e.g. Bengaluru" />
+          </label>
+          <label>Destination
+            <input id="dEnd" type="text" placeholder="e.g. Hampi" />
+          </label>
+          <label>Travel mode
+            <select id="dMode">
+              <option value="driving" selected>Driving</option>
+              <option value="walking">Walking</option>
+              <option value="transit">Transit</option>
+              <option value="bicycling">Bicycling</option>
+            </select>
+          </label>
+          <button class="btn btn-primary" id="openMaps">Open live traffic</button>
+        </div>
+
+        <div class="nearby-card">
+          <h4>Tip</h4>
+          <p class="desc">In Google Maps, you can switch routes and compare travel times.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Translator -->
+  <section class="section" id="translator">
+    <div class="container">
+      <h2 class="section-title">🗣️ Multi-Language Voice Translator</h2>
+      <p class="section-sub">Two-way conversation mode between tourists and local people.</p>
+      <div class="translator-box">
+        <div class="tl-row">
+          <select id="tlFrom">
+            <option value="en">English</option><option value="te">Telugu</option><option value="hi">Hindi</option><option value="ta">Tamil</option><option value="kn">Kannada</option><option value="ml">Malayalam</option><option value="mr">Marathi</option><option value="bn">Bengali</option><option value="gu">Gujarati</option><option value="pa">Punjabi</option>
+          </select>
+          <button class="btn btn-icon" id="swap">⇄</button>
+          <select id="tlTo">
+            <option value="te">Telugu</option><option value="hi">Hindi</option><option value="ta">Tamil</option><option value="kn">Kannada</option><option value="ml">Malayalam</option><option value="mr">Marathi</option><option value="bn">Bengali</option><option value="gu">Gujarati</option><option value="pa">Punjabi</option><option value="en" selected>English</option>
+          </select>
+        </div>
+        <textarea id="tlInput" rows="3" placeholder="Type or speak a phrase…"></textarea>
+        <div class="tl-actions">
+          <button class="btn btn-primary" id="tlSpeak">🎤 Speak</button>
+          <button class="btn btn-ghost" id="tlTranslate">Translate</button>
+          <button class="btn btn-ghost" id="tlListen">🔊 Listen</button>
+        </div>
+        <div id="tlOutput" class="tl-output">Translation will appear here…</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Trip Review -->
+  <section class="section alt" id="review">
+    <div class="container">
+      <h2 class="section-title">⭐ Trip Review & Coupon</h2>
+      <p class="section-sub">Submit a review to unlock a discount coupon.</p>
+
+      <div class="review-wrap">
+        <div class="review-card">
+          <label>Your name
+            <input id="rName" type="text" placeholder="Your name" />
+          </label>
+          <label>Rating
+            <select id="rRating">
+              <option value="5">5 - Excellent</option>
+              <option value="4">4 - Good</option>
+              <option value="3">3 - Average</option>
+              <option value="2">2 - Bad</option>
+              <option value="1">1 - Very bad</option>
+            </select>
+          </label>
+          <label>Review
+            <textarea id="rText" rows="3" placeholder="Write your review..."></textarea>
+          </label>
+          <button class="btn btn-primary" id="submitReview">Submit review</button>
+        </div>
+
+        <div class="review-card">
+          <h3 style="margin-bottom:10px;color:var(--dark)">🎟️ Your coupon</h3>
+          <div id="couponBox" class="coupon-box">No coupon yet</div>
+          <button class="btn btn-ghost" id="clearCoupon">Clear coupon</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <p><strong>AI Smart Tourism & Travel Assistant</strong> — Student Innovation Project</p>
+      <p>Smart tourism · AI trip planning · Travel safety</p>
+      <p class="footer-note">Built with HTML, CSS & JavaScript. Add your Google Maps, OpenWeather & translation API keys to go live.</p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
