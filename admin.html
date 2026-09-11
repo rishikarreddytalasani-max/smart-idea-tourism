@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SmartTour Admin Panel</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    :root{--primary:#2563eb;--accent:#10b981;--danger:#ef4444;--bg:#f8fafc;--surface:#fff;--border:#e2e8f0;--dark:#0f172a;--text:#475569;--muted:#94a3b8;}
+    *{margin:0;padding:0;box-sizing:border-box;}
+    body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);}
+    .sidebar{position:fixed;left:0;top:0;bottom:0;width:220px;background:var(--dark);padding:24px 16px;display:flex;flex-direction:column;gap:6px;}
+    .sidebar .logo{color:#fff;font-size:1.1rem;font-weight:800;padding:0 8px 20px;border-bottom:1px solid #1e293b;margin-bottom:10px;display:flex;align-items:center;gap:8px;}
+    .sidebar a{display:flex;align-items:center;gap:10px;color:#94a3b8;text-decoration:none;padding:10px 12px;border-radius:8px;font-size:0.88rem;font-weight:500;transition:0.15s;}
+    .sidebar a:hover,.sidebar a.active{background:#1e293b;color:#fff;}
+    .main{margin-left:220px;padding:32px;}
+    h1{font-size:1.6rem;font-weight:800;color:var(--dark);margin-bottom:6px;}
+    .subtitle{color:var(--muted);margin-bottom:28px;font-size:0.92rem;}
+    .stat-row{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:32px;}
+    .stat-card{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:20px 24px;box-shadow:0 1px 4px rgba(0,0,0,0.05);}
+    .stat-card span{display:block;color:var(--muted);font-size:0.78rem;font-weight:600;text-transform:uppercase;letter-spacing:0.4px;margin-bottom:8px;}
+    .stat-card strong{font-size:2rem;font-weight:800;color:var(--dark);}
+    .card{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:24px;box-shadow:0 1px 4px rgba(0,0,0,0.05);margin-bottom:24px;}
+    .card h2{font-size:1rem;font-weight:700;color:var(--dark);margin-bottom:18px;display:flex;align-items:center;gap:8px;}
+    table{width:100%;border-collapse:collapse;font-size:0.88rem;}
+    th{text-align:left;padding:10px 14px;background:#f1f5f9;color:var(--muted);font-size:0.75rem;font-weight:700;text-transform:uppercase;letter-spacing:0.4px;border-bottom:1px solid var(--border);}
+    td{padding:12px 14px;border-bottom:1px solid var(--border);vertical-align:middle;}
+    tr:last-child td{border-bottom:none;}
+    tr:hover td{background:#f8fafc;}
+    .badge{display:inline-flex;align-items:center;padding:3px 10px;border-radius:999px;font-size:0.75rem;font-weight:700;}
+    .badge.active{background:#dcfce7;color:#166534;}
+    .badge.used{background:#fee2e2;color:#991b1b;}
+    .badge.expired{background:#fef3c7;color:#92400e;}
+    .btn{display:inline-flex;align-items:center;gap:6px;padding:7px 14px;border-radius:8px;font-size:0.82rem;font-weight:600;border:none;cursor:pointer;transition:0.15s;}
+    .btn-danger{background:#fee2e2;color:#991b1b;}
+    .btn-danger:hover{background:#fecaca;}
+    .btn-primary{background:var(--primary);color:#fff;}
+    .btn-primary:hover{background:#1d4ed8;}
+    .stars{color:#f59e0b;letter-spacing:1px;}
+    .empty{text-align:center;padding:40px;color:var(--muted);font-size:0.92rem;}
+    .search-bar{display:flex;gap:10px;margin-bottom:16px;}
+    .search-bar input{flex:1;padding:9px 14px;border:1.5px solid var(--border);border-radius:10px;font-size:0.9rem;font-family:inherit;}
+    .search-bar input:focus{outline:none;border-color:var(--primary);}
+    .tab-row{display:flex;gap:4px;margin-bottom:20px;}
+    .tab{padding:8px 16px;border-radius:8px;font-size:0.88rem;font-weight:600;cursor:pointer;border:1.5px solid var(--border);background:var(--surface);color:var(--text);transition:0.15s;}
+    .tab.active{background:var(--primary);color:#fff;border-color:var(--primary);}
+    #section-coupons,.section-panel{display:none;}
+    #section-coupons.visible,.section-panel.visible{display:block;}
+    #section-reviews.visible{display:block;}
+    #section-reviews{display:none;}
+  </style>
+</head>
+<body>
+<aside class="sidebar">
+  <div class="logo">✈️ SmartTour<br><small style="color:#64748b;font-size:0.7rem;font-weight:400">Admin Panel</small></div>
+  <a href="#" class="active" onclick="showTab('coupons',this)">🎟️ Coupons</a>
+  <a href="#" onclick="showTab('reviews',this)">⭐ Reviews</a>
+  <a href="index.html" target="_blank">🌐 View Site</a>
+</aside>
+<main class="main">
+  <h1>Admin Dashboard</h1>
+  <p class="subtitle">Manage coupons and reviews from your SmartTour backend.</p>
+
+  <div class="stat-row">
+    <div class="stat-card"><span>Total Coupons</span><strong id="sTotalC">—</strong></div>
+    <div class="stat-card"><span>Active Coupons</span><strong id="sActiveC">—</strong></div>
+    <div class="stat-card"><span>Redeemed</span><strong id="sUsedC">—</strong></div>
+    <div class="stat-card"><span>Total Reviews</span><strong id="sTotalR">—</strong></div>
+  </div>
+
+  <div id="section-coupons" class="visible">
+    <div class="card">
+      <h2>🎟️ All Coupons</h2>
+      <div class="search-bar">
+        <input type="text" id="couponSearch" placeholder="Search by code, name, or destination…" oninput="filterCoupons()" />
+        <button class="btn btn-primary" onclick="loadData()">🔄 Refresh</button>
+      </div>
+      <div id="couponTable"><p class="empty">Loading…</p></div>
+    </div>
+  </div>
+
+  <div id="section-reviews">
+    <div class="card">
+      <h2>⭐ All Reviews</h2>
+      <div class="search-bar">
+        <input type="text" id="reviewSearch" placeholder="Search by name or destination…" oninput="filterReviews()" />
+        <button class="btn btn-primary" onclick="loadData()">🔄 Refresh</button>
+      </div>
+      <div id="reviewTable"><p class="empty">Loading…</p></div>
+    </div>
+  </div>
+</main>
+
+<script>
+const API = window.location.port ? `${window.location.protocol}//${window.location.hostname}:${window.location.port}` : '';
+let allCoupons = [];
+let allReviews = [];
+
+function showTab(name, el) {
+  document.querySelectorAll('.sidebar a').forEach(a => a.classList.remove('active'));
+  if(el) el.classList.add('active');
+  document.getElementById('section-coupons').classList.toggle('visible', name==='coupons');
+  document.getElementById('section-reviews').classList.toggle('visible', name==='reviews');
+}
+
+function stars(n) { return '★'.repeat(n) + '☆'.repeat(5-n); }
+function fmtDate(s) { return s ? new Date(s).toLocaleDateString('en-IN',{day:'numeric',month:'short',year:'numeric'}) : 'N/A'; }
+
+function renderCoupons(list) {
+  const now = new Date();
+  if (!list.length) { document.getElementById('couponTable').innerHTML = '<p class="empty">No coupons found.</p>'; return; }
+  const rows = list.map(c => {
+    const expired = new Date(c.expiresAt) < now;
+    const status = c.isUsed ? 'used' : expired ? 'expired' : 'active';
+    const label  = c.isUsed ? 'Redeemed' : expired ? 'Expired' : 'Active';
+    return `<tr>
+      <td><code style="font-weight:700;letter-spacing:2px;color:#1e40af">${c.code}</code></td>
+      <td>${c.reviewerName||'—'}</td>
+      <td>${c.destination||'—'}</td>
+      <td><strong>${c.discount}%</strong></td>
+      <td><span class="badge ${status}">${label}</span></td>
+      <td>${fmtDate(c.createdAt)}</td>
+      <td>${fmtDate(c.expiresAt)}</td>
+      <td><button class="btn btn-danger" onclick="deleteCoupon('${c.code}')">🗑️ Delete</button></td>
+    </tr>`;
+  }).join('');
+  document.getElementById('couponTable').innerHTML = `<table>
+    <thead><tr><th>Code</th><th>Reviewer</th><th>Destination</th><th>Discount</th><th>Status</th><th>Created</th><th>Expires</th><th>Action</th></tr></thead>
+    <tbody>${rows}</tbody></table>`;
+}
+
+function renderReviews(list) {
+  if (!list.length) { document.getElementById('reviewTable').innerHTML = '<p class="empty">No reviews yet.</p>'; return; }
+  const rows = list.map(r => `<tr>
+    <td>${r.name}</td>
+    <td>${r.destination}</td>
+    <td><span class="stars">${stars(r.rating)}</span> <small style="color:#94a3b8">${r.rating}/5</small></td>
+    <td style="max-width:320px;color:#475569">${r.text}</td>
+    <td>${fmtDate(r.createdAt)}</td>
+  </tr>`).join('');
+  document.getElementById('reviewTable').innerHTML = `<table>
+    <thead><tr><th>Name</th><th>Destination</th><th>Rating</th><th>Review</th><th>Date</th></tr></thead>
+    <tbody>${rows}</tbody></table>`;
+}
+
+function filterCoupons() {
+  const q = document.getElementById('couponSearch').value.toLowerCase();
+  renderCoupons(allCoupons.filter(c =>
+    c.code.toLowerCase().includes(q) ||
+    (c.reviewerName||'').toLowerCase().includes(q) ||
+    (c.destination||'').toLowerCase().includes(q)
+  ));
+}
+function filterReviews() {
+  const q = document.getElementById('reviewSearch').value.toLowerCase();
+  renderReviews(allReviews.filter(r =>
+    r.name.toLowerCase().includes(q) ||
+    (r.destination||'').toLowerCase().includes(q) ||
+    r.text.toLowerCase().includes(q)
+  ));
+}
+
+async function deleteCoupon(code) {
+  if (!confirm(`Delete coupon ${code}?`)) return;
+  try {
+    const res = await fetch(API + `/api/admin/coupon/${code}`, { method:'DELETE' });
+    const data = await res.json();
+    if (data.success) { loadData(); }
+    else alert('Error: ' + (data.error||'Unknown'));
+  } catch(e) { alert('Server not reachable. Run server.js first.'); }
+}
+
+async function loadData() {
+  try {
+    const [cr, rr] = await Promise.all([
+      fetch(API + '/api/admin/coupons').then(r=>r.json()),
+      fetch(API + '/api/admin/reviews').then(r=>r.json())
+    ]);
+    allCoupons = cr.coupons || [];
+    allReviews = rr.reviews || [];
+    const now = new Date();
+    document.getElementById('sTotalC').textContent  = allCoupons.length;
+    document.getElementById('sActiveC').textContent = allCoupons.filter(c=>!c.isUsed && new Date(c.expiresAt)>now).length;
+    document.getElementById('sUsedC').textContent   = allCoupons.filter(c=>c.isUsed).length;
+    document.getElementById('sTotalR').textContent  = allReviews.length;
+    renderCoupons(allCoupons);
+    renderReviews(allReviews);
+  } catch(e) {
+    // Fallback: load from localStorage
+    const store = JSON.parse(localStorage.getItem('smarttour_coupons')||'{}');
+    allCoupons = Object.entries(store).map(([code,v])=>({code,...v,isUsed:v.used,discount:v.discount,reviewerName:v.name,destination:v.dest,expiresAt:new Date(Date.now()+30*86400000).toISOString()}));
+    allReviews = [];
+    document.getElementById('sTotalC').textContent  = allCoupons.length;
+    document.getElementById('sActiveC').textContent = allCoupons.filter(c=>!c.isUsed).length;
+    document.getElementById('sUsedC').textContent   = allCoupons.filter(c=>c.isUsed).length;
+    document.getElementById('sTotalR').textContent  = '—';
+    renderCoupons(allCoupons);
+    document.getElementById('reviewTable').innerHTML = '<p class="empty">Start server.js to see reviews. Showing localStorage coupons only.</p>';
+  }
+}
+
+loadData();
+</script>
+</body>
+</html>

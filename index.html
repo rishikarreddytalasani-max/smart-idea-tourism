@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SmartTour — AI Travel Assistant</title>
+  <meta name="description" content="Plan your perfect trip with AI-powered itineraries, budget calculator, nearby discovery, and translation." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<!-- ===== NAVBAR ===== -->
+<nav class="navbar">
+  <div class="container nav-inner">
+    <a href="#" class="logo">
+      <div class="logo-icon">✈️</div>
+      Smart<span>Tour</span>
+    </a>
+    <button class="hamburger" id="hamburger" aria-label="Menu">☰</button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#planner">Trip Planner</a></li>
+      <li><a href="#budget">Budget</a></li>
+      <li><a href="#nearby">Discover</a></li>
+      <li><a href="#directions">Directions</a></li>
+      <li><a href="#translator">Translate</a></li>
+      <li><a href="#coupons">Coupons</a></li>
+      <li><a href="admin.html" target="_blank" class="btn-cta nav-cta">Admin Panel</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- ===== HERO ===== -->
+<section class="hero">
+  <div class="container hero-inner">
+    <div class="hero-text">
+      <div class="badge">🤖 AI-Powered Travel Planning</div>
+      <h1>Travel Smarter with <span>AI Assistance</span></h1>
+      <p>Plan trips, discover hidden gems, calculate budgets, translate on the go, and earn exclusive discount coupons — all in one place.</p>
+      <div class="hero-actions">
+        <a href="#planner" class="btn btn-primary">🗺️ Plan My Trip</a>
+        <a href="#nearby" class="btn btn-ghost">📍 Discover Places</a>
+      </div>
+      <div class="hero-stats">
+        <div class="hero-stat"><span>4+</span><p>Destinations</p></div>
+        <div class="hero-stat"><span>20+</span><p>Attractions</p></div>
+        <div class="hero-stat"><span>3</span><p>Budget Plans</p></div>
+        <div class="hero-stat"><span>10+</span><p>Languages</p></div>
+      </div>
+    </div>
+    <div class="hero-card">
+      <div class="mini-card"><span>🌟 Top Rated Destination</span><strong>Hampi, Karnataka</strong></div>
+      <div class="mini-card"><span>💰 Budget Starting From</span><strong>₹800 / day / person</strong></div>
+      <div class="mini-card"><span>🎫 Earn Coupons</span><strong>Write a review → get 5–15% off</strong></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FEATURES ===== -->
+<section class="section alt">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-tag">✨ Everything You Need</div>
+      <h2 class="section-title">Your Complete Travel Toolkit</h2>
+      <p class="section-sub">Six powerful tools built to make your journey effortless from start to finish.</p>
+    </div>
+    <div class="features-grid">
+      <div class="feature-card"><div class="feature-icon">🗺️</div><h3>Smart Itinerary Planner</h3><p>Get a day-by-day schedule with real timings, attractions, and travel legs based on your trip details.</p></div>
+      <div class="feature-card"><div class="feature-icon">💰</div><h3>Budget Calculator</h3><p>Choose budget, standard, or premium plans and instantly see estimated costs per day and per person.</p></div>
+      <div class="feature-card"><div class="feature-icon">📍</div><h3>Nearby Discovery</h3><p>Find top-rated attractions, restaurants, and landmarks within your preferred radius.</p></div>
+      <div class="feature-card"><div class="feature-icon">🧭</div><h3>Directions</h3><p>Open Google Maps with driving, walking, cycling, or transit routes pre-filled.</p></div>
+      <div class="feature-card"><div class="feature-icon">🌐</div><h3>Language Translator</h3><p>Translate phrases, use voice input, and play back the translation in the target language.</p></div>
+      <div class="feature-card"><div class="feature-icon">🎟️</div><h3>Coupon Rewards</h3><p>Leave a review and earn an exclusive discount coupon. Validate and redeem coupons instantly.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== PLANNER ===== -->
+<section class="section" id="planner">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-tag">🗺️ Trip Planner</div>
+      <h2 class="section-title">Build Your Itinerary</h2>
+      <p class="section-sub">Fill in the details below to get a personalised day-by-day travel plan with accurate timings.</p>
+    </div>
+    <div class="planner-wrap">
+      <form class="planner-form" id="plannerForm" novalidate>
+        <div class="form-row">
+          <label>Destination <span class="hint">Hampi / Goa / Jaipur / Munnar</span>
+            <input type="text" id="pDest" placeholder="e.g. Goa" required />
+          </label>
+          <label>Starting From
+            <input type="text" id="pStart" placeholder="e.g. Bangalore" />
+          </label>
+          <label>Travel Date
+            <input type="date" id="pDate" />
+          </label>
+        </div>
+        <div class="form-row">
+          <label>Number of Days
+            <input type="number" id="pDays" value="3" min="1" max="10" />
+          </label>
+          <label>Travellers
+            <input type="number" id="pPeople" value="2" min="1" max="20" />
+          </label>
+          <label>Budget (₹)
+            <input type="number" id="pBudget" value="5000" min="500" />
+          </label>
+        </div>
+        <div class="form-row">
+          <label>Accommodation Preference
+            <select id="pPref">
+              <option>Budget Hotel</option>
+              <option>Mid-range Hotel</option>
+              <option>Luxury Resort</option>
+              <option>Hostel</option>
+              <option>Airbnb</option>
+            </select>
+          </label>
+          <label>Travel Interest
+            <select id="pInterest">
+              <option>Cultural & Heritage</option>
+              <option>Nature & Adventure</option>
+              <option>Beach & Relaxation</option>
+              <option>Food & Shopping</option>
+              <option>Photography</option>
+            </select>
+          </label>
+          <label>Day Start Time
+            <input type="time" id="pStartTime" value="09:00" />
+          </label>
+        </div>
+        <button type="submit" class="btn btn-primary btn-block" id="planBtn">✨ Generate My Itinerary</button>
+      </form>
+      <div class="itinerary hidden" id="itinerary"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== BUDGET ===== -->
+<section class="section alt" id="budget">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-tag">💰 Budget Planner</div>
+      <h2 class="section-title">Pick Your Plan</h2>
+      <p class="section-sub">Select a spending level and instantly see your estimated costs. Inputs sync with the trip planner above.</p>
+    </div>
+    <div class="budget-wrap">
+      <div class="plan-cards">
+        <div class="plan-card" data-plan="budget">
+          <span class="plan-badge" style="background:#dcfce7;color:#166534">🟢 Economy</span>
+          <h3>Budget Plan</h3>
+          <p>₹800 / person / day</p>
+          <ul>
+            <li>Hostels & dorms</li>
+            <li>Local street food</li>
+            <li>Public transport</li>
+            <li>Free attractions</li>
+          </ul>
+        </div>
+        <div class="plan-card active" data-plan="standard">
+          <span class="plan-badge" style="background:#dbeafe;color:#1e40af">🔵 Popular</span>
+          <h3>Standard Plan</h3>
+          <p>₹1500 / person / day</p>
+          <ul>
+            <li>Mid-range hotels</li>
+            <li>Mix of restaurants</li>
+            <li>Cab / auto rides</li>
+            <li>Paid entry tickets</li>
+          </ul>
+        </div>
+        <div class="plan-card" data-plan="premium">
+          <span class="plan-badge" style="background:#f5f3ff;color:#6d28d9">🟣 Premium</span>
+          <h3>Premium Plan</h3>
+          <p>₹3000 / person / day</p>
+          <ul>
+            <li>Luxury resorts</li>
+            <li>Fine dining</li>
+            <li>Private cab</li>
+            <li>Guided tours</li>
+          </ul>
+        </div>
+      </div>
+      <div class="budget-output">
+        <div class="budget-stat"><span>Total Budget</span><strong id="bTotal">—</strong></div>
+        <div class="budget-stat"><span>Per Person</span><strong id="bPer">—</strong></div>
+        <div class="budget-stat"><span>Per Day</span><strong id="bDaily">—</strong></div>
+        <div class="budget-stat"><span>Remaining</span><strong id="bRemain">—</strong></div>
+      </div>
+      <p class="budget-hint">💡 "Remaining" = your entered budget minus estimated per-person cost. Negative means you may need more funds.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== NEARBY ===== -->
+<section class="section" id="nearby">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-tag">📍 Nearby Discovery</div>
+      <h2 class="section-title">Explore Attractions</h2>
+      <p class="section-sub">Filter by destination, radius, and category to find the best places near you.</p>
+    </div>
+    <div class="nearby-controls">
+      <label>Destination
+        <select id="nDest">
+          <option>Hampi</option><option>Goa</option><option>Jaipur</option><option>Munnar</option>
+        </select>
+      </label>
+      <label>Search Radius
+        <select id="nRadius">
+          <option value="5">Within 5 km</option>
+          <option value="10" selected>Within 10 km</option>
+          <option value="20">Within 20 km</option>
+          <option value="50">Within 50 km</option>
+          <option value="custom">Custom…</option>
+        </select>
+      </label>
+      <label class="hidden" id="customWrap">Custom Radius (km)
+        <input type="number" id="nCustom" value="15" min="1" max="200" />
+      </label>
+      <label>Category
+        <select id="nCat">
+          <option value="all">All Categories</option>
+          <option>Historical places</option>
+          <option>Religious places</option>
+          <option>Nature</option>
+          <option>Beaches</option>
+          <option>Adventure</option>
+          <option>Museums</option>
+          <option>Cultural attractions</option>
+          <option>Shopping</option>
+        </select>
+      </label>
+    </div>
+    <div id="nearbyResults" class="nearby-grid"></div>
+  </div>
+</section>
+
+<!-- ===== DIRECTIONS ===== -->
+<section class="section alt" id="directions">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-tag">🧭 Directions</div>
+      <h2 class="section-title">Get There Easily</h2>
+      <p class="section-sub">Enter two locations to open a live route in Google Maps.</p>
+    </div>
+    <div class="dir-wrap">
+      <div class="dir-form">
+        <label>Start Location
+          <input type="text" id="dStart" placeholder="e.g. Bangalore" />
+        </label>
+        <label>Destination
+          <input type="text" id="dEnd" placeholder="e.g. Hampi" />
+        </label>
+        <label>Travel Mode
+          <select id="dMode">
+            <option value="driving">🚗 Driving</option>
+            <option value="transit">🚌 Transit</option>
+            <option value="walking">🚶 Walking</option>
+            <option value="bicycling">🚴 Bicycling</option>
+          </select>
+        </label>
+        <button class="btn btn-primary" id="openMaps">🗺️ Open Google Maps</button>
+      </div>
+      <div class="dir-info">
+        <h4>Quick Tips</h4>
+        <div class="tip-item"><div class="tip-icon">🚗</div><p><strong>Driving</strong> — Best for remote destinations like Hampi or Munnar with scenic routes.</p></div>
+        <div class="tip-item"><div class="tip-icon">🚌</div><p><strong>Transit</strong> — Ideal for cities like Jaipur with good bus and metro networks.</p></div>
+        <div class="tip-item"><div class="tip-icon">🚶</div><p><strong>Walking</strong> — Great for exploring temple complexes and bazaars close-range.</p></div>
+        <div class="tip-item"><div class="tip-icon">💡</div><p>Downloads work offline — save the route in Google Maps before you travel.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== TRANSLATOR ===== -->
+<section class="section" id="translator">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-tag">🌐 Translator</div>
+      <h2 class="section-title">Speak the Local Language</h2>
+      <p class="section-sub">Type or speak a phrase and translate it. Use the speaker button to hear the result.</p>
+    </div>
+    <div class="translator-box">
+      <div class="tl-row">
+        <label style="flex:1">From
+          <select id="tlFrom">
+            <option value="en-US">English</option>
+            <option value="hi-IN">Hindi</option>
+            <option value="kn-IN">Kannada</option>
+            <option value="ta-IN">Tamil</option>
+            <option value="te-IN">Telugu</option>
+            <option value="ml-IN">Malayalam</option>
+            <option value="mr-IN">Marathi</option>
+            <option value="gu-IN">Gujarati</option>
+            <option value="bn-IN">Bengali</option>
+            <option value="fr-FR">French</option>
+            <option value="de-DE">German</option>
+            <option value="ja-JP">Japanese</option>
+          </select>
+        </label>
+        <button class="btn-icon" id="swap" title="Swap languages">⇄</button>
+        <label style="flex:1">To
+          <select id="tlTo">
+            <option value="hi-IN">Hindi</option>
+            <option value="en-US">English</option>
+            <option value="kn-IN">Kannada</option>
+            <option value="ta-IN">Tamil</option>
+            <option value="te-IN">Telugu</option>
+            <option value="ml-IN">Malayalam</option>
+            <option value="mr-IN">Marathi</option>
+            <option value="gu-IN">Gujarati</option>
+            <option value="bn-IN">Bengali</option>
+            <option value="fr-FR">French</option>
+            <option value="de-DE">German</option>
+            <option value="ja-JP">Japanese</option>
+          </select>
+        </label>
+      </div>
+      <label>Your Phrase
+        <textarea id="tlInput" rows="3" placeholder="Type a phrase to translate…"></textarea>
+      </label>
+      <div class="tl-actions">
+        <button class="btn btn-primary" id="tlTranslate">🔤 Translate</button>
+        <button class="btn btn-ghost" id="tlSpeak">🎙️ Voice Input</button>
+        <button class="btn" style="background:#f0fdf4;color:#166534;border:1.5px solid #86efac" id="tlListen">🔊 Play Result</button>
+      </div>
+      <div class="tl-output" id="tlOutput">Translation will appear here…</div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== COUPON SECTION ===== -->
+<section class="coupon-section" id="coupons">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-tag">🎟️ Coupon Rewards</div>
+      <h2 class="section-title">Review & Save</h2>
+      <p class="section-sub">Share your travel experience and earn an exclusive discount coupon. Already have one? Validate it below.</p>
+    </div>
+    <div class="coupon-grid">
+
+      <!-- REVIEW FORM -->
+      <div class="coupon-card">
+        <h3>✍️ Write a Review</h3>
+        <div class="coupon-form" id="reviewForm">
+          <label>Your Name
+            <input type="text" id="rName" placeholder="e.g. Priya Sharma" />
+          </label>
+          <label>Destination
+            <select id="rDest">
+              <option>Hampi</option><option>Goa</option><option>Jaipur</option><option>Munnar</option>
+            </select>
+          </label>
+          <label>Rating
+            <div class="stars" id="starRating">
+              <span class="star" data-v="1">★</span>
+              <span class="star" data-v="2">★</span>
+              <span class="star" data-v="3">★</span>
+              <span class="star" data-v="4">★</span>
+              <span class="star" data-v="5">★</span>
+            </div>
+            <input type="hidden" id="rRating" value="0" />
+          </label>
+          <label>Your Review
+            <textarea id="rText" rows="3" placeholder="Share your experience…"></textarea>
+          </label>
+          <div class="alert" id="reviewAlert"></div>
+          <button class="btn btn-accent" id="submitReview">🎟️ Submit & Get Coupon</button>
+        </div>
+        <div class="coupon-result" id="couponResult">
+          <p style="opacity:0.8;font-size:0.9rem">🎉 Your exclusive coupon code:</p>
+          <div class="coupon-code" id="couponCode">—</div>
+          <p class="coupon-discount" id="couponDiscount"></p>
+          <div class="coupon-actions">
+            <button class="btn btn-sm" style="background:rgba(255,255,255,0.2);color:#fff;border:1px solid rgba(255,255,255,0.3)" id="copyCoupon">📋 Copy Code</button>
+            <button class="btn btn-sm" style="background:rgba(255,255,255,0.1);color:#fff;border:1px solid rgba(255,255,255,0.2)" id="newReview">✍️ Write Another</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- VALIDATE / REDEEM -->
+      <div class="coupon-card">
+        <h3>✅ Validate a Coupon</h3>
+        <div class="validate-wrap">
+          <label style="color:rgba(255,255,255,0.85);font-size:0.85rem;font-weight:600">Enter Coupon Code
+            <div class="validate-input-row">
+              <input type="text" id="vCode" placeholder="SMART-XXXXXX" style="background:rgba(255,255,255,0.12);border:1.5px solid rgba(255,255,255,0.2);color:#fff;border-radius:10px;padding:11px 14px;font-size:0.95rem;font-family:inherit;text-transform:uppercase;letter-spacing:2px" />
+              <button class="btn btn-sm btn-primary" id="validateCoupon">Check</button>
+            </div>
+          </label>
+          <div class="validate-result" id="validateResult"></div>
+          <button class="btn btn-accent" id="redeemCoupon" style="display:none;margin-top:8px">🎟️ Redeem This Coupon</button>
+
+          <div style="margin-top:28px;padding-top:24px;border-top:1px solid rgba(255,255,255,0.15)">
+            <h4 style="color:rgba(255,255,255,0.9);margin-bottom:12px;font-size:1rem">💡 How It Works</h4>
+            <div style="display:flex;flex-direction:column;gap:12px">
+              <div style="display:flex;gap:12px;align-items:flex-start">
+                <span style="background:var(--primary);border-radius:50%;width:26px;height:26px;display:flex;align-items:center;justify-content:center;font-size:0.8rem;font-weight:700;flex-shrink:0">1</span>
+                <p style="font-size:0.88rem;opacity:0.8;margin:0">Write a review of any destination you've visited.</p>
+              </div>
+              <div style="display:flex;gap:12px;align-items:flex-start">
+                <span style="background:var(--primary);border-radius:50%;width:26px;height:26px;display:flex;align-items:center;justify-content:center;font-size:0.8rem;font-weight:700;flex-shrink:0">2</span>
+                <p style="font-size:0.88rem;opacity:0.8;margin:0">Receive a unique coupon code — 5–15% off based on your rating.</p>
+              </div>
+              <div style="display:flex;gap:12px;align-items:flex-start">
+                <span style="background:var(--primary);border-radius:50%;width:26px;height:26px;display:flex;align-items:center;justify-content:center;font-size:0.8rem;font-weight:700;flex-shrink:0">3</span>
+                <p style="font-size:0.88rem;opacity:0.8;margin:0">Validate and redeem your coupon on your next booking. Valid 30 days.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="#" class="logo"><div class="logo-icon">✈️</div>Smart<span>Tour</span></a>
+        <p>AI-powered travel planning made simple. Explore India's most beautiful destinations with confidence.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Features</h4>
+        <ul>
+          <li><a href="#planner">Trip Planner</a></li>
+          <li><a href="#budget">Budget Calculator</a></li>
+          <li><a href="#nearby">Nearby Discovery</a></li>
+          <li><a href="#directions">Directions</a></li>
+          <li><a href="#translator">Translator</a></li>
+          <li><a href="#coupons">Coupons</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Destinations</h4>
+        <ul>
+          <li><a href="#">Hampi</a></li>
+          <li><a href="#">Goa</a></li>
+          <li><a href="#">Jaipur</a></li>
+          <li><a href="#">Munnar</a></li>
+          <li><a href="admin.html" target="_blank">Admin Panel ↗</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 SmartTour. Built for explorers.</p>
+      <div class="footer-tech">
+        <span class="tech-badge">HTML5</span>
+        <span class="tech-badge">CSS3</span>
+        <span class="tech-badge">JavaScript</span>
+        <span class="tech-badge">Node.js</span>
+        <span class="tech-badge">Express</span>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
